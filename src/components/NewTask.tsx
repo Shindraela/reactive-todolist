@@ -13,8 +13,8 @@ interface Props {
 export const NewTask: FunctionComponent<Props> = ({ task, onChange, onAdd }) => (
   <div className="column column-50 column-offset-25">
     <form onSubmit={onAdd} className="form-margin">
-      <input onChange={onChange} value={task.name} />
-      <button type="submit" className="button button-small">Add a task</button>
+      <input placeholder="write a new task..." onChange={onChange} value={task.name} />
+      <button type="submit" className="button button-small">Add</button>
     </form>
   </div>
 );

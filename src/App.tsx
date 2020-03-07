@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Task } from "./models/task";
 import { NewTask } from "./components/NewTask";
 import { TasksList } from "./components/TasksList";
-import { TaskItem } from "./components/TaskItem";
 
 // state handles tasks changes 
 interface State {
@@ -19,8 +18,7 @@ class App extends Component<{}, State> {
       name: "",
       isValidate: false
     },
-    tasks: [],
-    bgColor: ""
+    tasks: []
   };
   
   // making methods private since it shouldn't be accessed outside of the class
@@ -52,12 +50,23 @@ class App extends Component<{}, State> {
 
   // validate selecting task by finding it in tasks array with id
   private validateTask = (taskToValidate: Task) => {
-    this.setState(previousState => ({
-      tasks: [
-        ...previousState.tasks.filter(task => task.id === taskToValidate.id ? (taskToValidate.isValidate = true, this.state.bgColor = "green") : (taskToValidate.isValidate = false, this.state.bgColor = ""))
-      ]
-    }));
-    // console.log("tasks :", taskToValidate);
+    this.setState((previousState) => {
+      previousState.tasks.map(task => task.id === taskToValidate.id ? taskToValidate.isValidate = true : taskToValidate.isValidate = false);
+
+      // previousState.tasks.map(task => {
+      //   let returnedTask;
+
+      //   if(task.id === taskToValidate.id) {
+      //     taskToValidate.isValidate = true;
+      //   }
+      //   else {
+      //     taskToValidate.isValidate = false;
+      //   }
+      //   returnedTask = taskToValidate.isValidate;
+      //   console.log("returnedTask :", returnedTask);
+      //   return returnedTask;
+      // });
+    });
   };
 
   // delete selecting task by finding it in tasks array with id
@@ -85,7 +94,7 @@ class App extends Component<{}, State> {
         </div>
 
         <div className="row">
-          <TasksList tasks={this.state.tasks} bgColor={this.state.bgColor} onValidation={this.validateTask} onDelete={this.deleteTask} />
+          <TasksList tasks={this.state.tasks} onValidation={this.validateTask} onDelete={this.deleteTask} />
         </div>
       </div>
     );
