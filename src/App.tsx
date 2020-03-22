@@ -9,8 +9,17 @@ interface State {
   tasks: Task[];
 }
 
+interface Props {
+  validateTask: () => void
+}
+
 // empty object for Props, add State as a second argument
 class App extends Component<{}, State> {
+  constructor(props: Props) {
+    super(props);
+    this.validateTask = this.validateTask.bind(this);
+  }
+
   // define newTask id by default and tasks array
   state = {
     newTask: {
@@ -49,23 +58,25 @@ class App extends Component<{}, State> {
   };
 
   // validate selecting task by finding it in tasks array with id
-  private validateTask = (taskToValidate: Task) => {
-    this.setState((previousState) => {
-      previousState.tasks.map(task => task.id === taskToValidate.id ? taskToValidate.isValidate = true : taskToValidate.isValidate = false);
+  validateTask = (taskToValidate: Task) => {
+    // console.log("clicked");
 
-      // previousState.tasks.map(task => {
-      //   let returnedTask;
+    let isDone = (task: Task, index: number) => {
+      let finalValue;
 
-      //   if(task.id === taskToValidate.id) {
-      //     taskToValidate.isValidate = true;
-      //   }
-      //   else {
-      //     taskToValidate.isValidate = false;
-      //   }
-      //   returnedTask = taskToValidate.isValidate;
-      //   console.log("returnedTask :", returnedTask);
-      //   return returnedTask;
-      // });
+      if(!task.isValidate) {
+        task.isValidate = true;
+        finalValue = task.isValidate;
+      } else {
+        task.isValidate = false;
+        finalValue = task.isValidate;
+      }
+
+      return finalValue;
+    }
+
+    this.setState(previousState => {
+      previousState.tasks.filter(task => task.id === taskToValidate.id).map(isDone);
     });
   };
 
