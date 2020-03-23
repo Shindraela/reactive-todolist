@@ -14,7 +14,6 @@ export const TaskItem: FunctionComponent<Props> = ({ task, onValidation, onDelet
   };
 
   const onValidationClick = () => {
-    // console.log("task :", task.isValidate);
     onValidation(task);
   };
 

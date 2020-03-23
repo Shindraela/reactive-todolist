@@ -58,26 +58,20 @@ class App extends Component<{}, State> {
   };
 
   // validate selecting task by finding it in tasks array with id
-  validateTask = (taskToValidate: Task) => {
-    // console.log("clicked", taskToValidate);
-
-    let isDone = (task: Task, index: number) => {
-      let finalValue;
-
-      if(!task.isValidate) {
-        task.isValidate = true;
-        finalValue = task.isValidate;
-      } else {
-        task.isValidate = false;
-        finalValue = task.isValidate;
-      }
-
-      return finalValue;
-    }
-
-    this.setState(previousState => {
-      previousState.tasks.filter(task => task.id === taskToValidate.id).map(isDone);
-    });
+  private validateTask = (taskToValidate: Task) => {
+    this.setState(previousState => ({
+      tasks: previousState.tasks.map(task => {
+        if (task.id === taskToValidate.id) {
+          if(!task.isValidate) {
+            return {...task, isValidate: true};  
+          }
+          else {
+            return {...task, isValidate: false};
+          }
+        }
+        return task;
+      })
+    }));
   };
 
   // delete selecting task by finding it in tasks array with id
@@ -90,6 +84,8 @@ class App extends Component<{}, State> {
   };
 
   render() {
+    const tasks = this.state.tasks;
+
     return (
       <div className="container">
         <div className="row">
@@ -105,7 +101,7 @@ class App extends Component<{}, State> {
         </div>
 
         <div className="row">
-          <TasksList tasks={this.state.tasks} onValidation={this.validateTask} onDelete={this.deleteTask} />
+          <TasksList tasks={tasks} onValidation={this.validateTask} onDelete={this.deleteTask} />
         </div>
       </div>
     );
