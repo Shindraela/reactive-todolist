@@ -14,7 +14,7 @@ export const NewTask: FunctionComponent<Props> = ({ task, onChange, onAdd }) => 
   <div className="column column-50 column-offset-25">
     <form onSubmit={onAdd} className="form-margin">
       <input placeholder="write a new task..." onChange={onChange} value={task.name} />
-      <button type="submit" className="button button-small">Add</button>
+      <button type="submit" disabled={!task.name} className="button button-small">Add</button>
     </form>
   </div>
 );

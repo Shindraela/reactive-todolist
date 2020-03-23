@@ -4,6 +4,7 @@ import { TaskItem } from "./TaskItem";
 
 interface Props {
   tasks: Task[];
+  // onValidation: () => onValidation(task);
   onValidation: (task: Task) => void;
   onDelete: (task: Task) => void;
 }

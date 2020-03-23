@@ -59,7 +59,7 @@ class App extends Component<{}, State> {
 
   // validate selecting task by finding it in tasks array with id
   validateTask = (taskToValidate: Task) => {
-    // console.log("clicked");
+    // console.log("clicked", taskToValidate);
 
     let isDone = (task: Task, index: number) => {
       let finalValue;
